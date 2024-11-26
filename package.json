@@ -1,0 +1,11 @@
+{
+  "name": "my-github-pages-project",
+  "version": "1.0.0",
+  "description": "My project for GitHub Pages deployment",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Building the project...' && mkdir -p build && cp -r public/* build/"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
