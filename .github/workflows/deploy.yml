@@ -18,12 +18,6 @@ jobs:
         echo "Current working directory: $(pwd)"
         ls -la
 
-    - name: Change to the correct directory
-      run: cd project  # package.json dosyanızın bulunduğu dizin
-
-    - name: Install dependencies
-      run: npm install
-
     - name: Build the project
       run: npm run build
 
