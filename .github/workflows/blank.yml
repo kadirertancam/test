@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Node.js Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Hangi dalda işlem yapılacaksa onu belirtin
+      - main
 
 jobs:
   deploy:
@@ -13,21 +13,21 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v3
 
-    - name: Set up Node.js (if needed)
+    - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16  # Node.js sürümünüzü belirtin
+        node-version: 16
 
     - name: Install dependencies
       run: |
-        npm install  # Eğer npm veya başka bir araç kullanıyorsanız bunu güncelleyin
+        npm install  # package.json burada olmalı
 
     - name: Build the project
       run: |
-        npm run build  # Projenizin build komutu; değiştirin
+        npm run build  # Derleme komutunu kontrol edin
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build  # Build edilen dosyalar buradaysa doğru dizini belirtin
+        publish_dir: ./build  # Derleme sonucunda oluşan dizin
