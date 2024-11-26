@@ -1,25 +1,33 @@
-name: Ubuntu Environment
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # Hangi dalda işlem yapılacaksa onu belirtin
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout the code
       uses: actions/checkout@v3
 
-    - name: Set up Ubuntu environment
-      run: |
-        echo "Running on $(lsb_release -a)"
-        sudo apt-get update
-        sudo apt-get install -y curl
+    - name: Set up Node.js (if needed)
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16  # Node.js sürümünüzü belirtin
 
-    - name: Run a script
+    - name: Install dependencies
       run: |
-        echo "Hello, Ubuntu!"
-        uname -a
+        npm install  # Eğer npm veya başka bir araç kullanıyorsanız bunu güncelleyin
+
+    - name: Build the project
+      run: |
+        npm run build  # Projenizin build komutu; değiştirin
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build  # Build edilen dosyalar buradaysa doğru dizini belirtin
