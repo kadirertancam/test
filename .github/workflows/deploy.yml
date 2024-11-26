@@ -1,4 +1,4 @@
-name: Node.js Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -13,21 +13,22 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+    - name: Debug - List files in current directory
+      run: |
+        echo "Current working directory: $(pwd)"
+        ls -la
+
+    - name: Change to the correct directory
+      run: cd project  # package.json dosyanızın bulunduğu dizin
 
     - name: Install dependencies
-      run: |
-        npm install  # package.json burada olmalı
+      run: npm install
 
     - name: Build the project
-      run: |
-        npm run build  # Derleme komutunu kontrol edin
+      run: npm run build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build  # Derleme sonucunda oluşan dizin
+        publish_dir: ./build  # Derleme sonucu çıkan dizin
