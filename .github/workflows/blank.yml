@@ -1,0 +1,25 @@
+name: Ubuntu Environment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Ubuntu environment
+      run: |
+        echo "Running on $(lsb_release -a)"
+        sudo apt-get update
+        sudo apt-get install -y curl
+
+    - name: Run a script
+      run: |
+        echo "Hello, Ubuntu!"
+        uname -a
